@@ -1,0 +1,13 @@
+{{ define "body-class" }}home{{ end }}
+{{ define "main" }}
+<section class="container container--narrow">
+	<div class="notice-block">
+		<div class="big" aria-hidden="true">✦</div>
+		<h2>{{ .Title }}</h2>
+		<p style="color:var(--muted); max-width:48ch; margin:12px auto 28px;">
+			Thanks for reaching out — your message is in. We read every one and typically reply within a couple of business days.
+		</p>
+		<a class="btn btn--primary" href="{{ "/" | relLangURL }}">Back to home <span class="arrow" aria-hidden="true">&rarr;</span></a>
+	</div>
+</section>
+{{ end }}

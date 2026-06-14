@@ -1,0 +1,97 @@
+baseURL = "https://www.saas11.com/"
+title = "SaaS 11"
+
+[languages]
+  [languages.en]
+    label = "English"
+    locale = "en-US"
+    weight = 1
+enableRobotsTXT = true
+enableGitInfo = false
+
+# Pagination for the blog/insights list
+[pagination]
+  pagerSize = 9
+
+[params]
+  description = "SaaS 11 helps software companies make the leap from selling tools to delivering outcomes — AI & agentic systems, cloud-native platforms, and the FinOps and pricing models the next era runs on."
+  # Brand
+  brandName = "SaaS 11"
+  # Header call-to-action button
+  navCtaText = "Start a conversation"
+  navCtaUrl = "/#contact"
+  # Contact + social (used in footer)
+  contactEmail = "hello@saas11.com"
+  footerBlurb = "A consultancy for the Service-as-Software era — helping software companies turn AI, agents, and cloud-native platforms into completed work, delivered as software."
+
+  [params.social]
+    linkedin = ""
+    x = ""
+    github = ""
+
+  # Forms — using a hosted handler (no backend to run).
+  #
+  # Formspree:  create a form, then set the endpoint below, e.g.
+  #             contactAction = "https://formspree.io/f/abcdwxyz"
+  #             (You can use one form for both, or two separate endpoints.)
+  #
+  # Web3Forms:  set web3formsKey to your access key and point the actions at
+  #             https://api.web3forms.com/submit (the key is injected as a
+  #             hidden field automatically).
+  [params.forms]
+    contactAction = ""      # Formspree form URL (or https://api.web3forms.com/submit)
+    newsletterAction = ""   # same provider; can reuse the contact endpoint
+    web3formsKey = ""       # only for Web3Forms; leave blank for Formspree
+    # Where the handler redirects on success for the no-JS fallback.
+    successUrl = "/thanks/"
+
+# Primary navigation
+[[menus.main]]
+  name = "Capabilities"
+  url = "/#capabilities"
+  weight = 10
+[[menus.main]]
+  name = "Approach"
+  url = "/#approach"
+  weight = 20
+[[menus.main]]
+  name = "Point of view"
+  url = "/#thesis"
+  weight = 30
+[[menus.main]]
+  name = "Insights"
+  url = "/insights/"
+  weight = 40
+[[menus.main]]
+  name = "Contact"
+  url = "/#contact"
+  weight = 50
+
+# Footer "Company" column
+[[menus.footer]]
+  name = "Approach"
+  url = "/#approach"
+  weight = 10
+[[menus.footer]]
+  name = "Insights"
+  url = "/insights/"
+  weight = 20
+[[menus.footer]]
+  name = "Contact"
+  url = "/#contact"
+  weight = 30
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+    style = "github-dark"
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"

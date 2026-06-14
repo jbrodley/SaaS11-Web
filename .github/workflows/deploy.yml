@@ -1,0 +1,50 @@
+name: Build & Deploy (S3 + CloudFront)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "saas11-site/**"
+  workflow_dispatch:
+
+# OIDC into AWS — no long-lived keys. Configure an IAM role that trusts
+# token.actions.githubusercontent.com and grants s3:* on the bucket and
+# cloudfront:CreateInvalidation on the distribution.
+permissions:
+  id-token: write
+  contents: read
+
+defaults:
+  run:
+    working-directory: saas11-site
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.163.1
+      BASE_URL: https://www.saas11.com/
+      S3_BUCKET: ${{ vars.S3_BUCKET }}
+      CF_DISTRIBUTION_ID: ${{ vars.CF_DISTRIBUTION_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Hugo (extended)
+        run: |
+          curl -sSL -o /tmp/hugo.tar.gz \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          tar -xzf /tmp/hugo.tar.gz -C /tmp hugo
+          sudo mv /tmp/hugo /usr/local/bin/hugo
+          hugo version
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Build & deploy
+        run: ./scripts/deploy.sh

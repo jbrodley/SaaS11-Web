@@ -1,0 +1,45 @@
+{{- $title := .Title -}}
+{{- $isHome := .IsHome -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{{- if $isHome }}
+<title>{{ .Site.Title }} — Service-as-Software</title>
+{{- else }}
+<title>{{ $title }} · {{ .Site.Title }}</title>
+{{- end }}
+
+{{- $desc := .Description | default .Site.Params.description }}
+<meta name="description" content="{{ $desc }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- /* Open Graph / Twitter */}}
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:title" content="{{ if $isHome }}{{ .Site.Title }} — Service-as-Software{{ else }}{{ $title }}{{ end }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta name="twitter:card" content="summary_large_image">
+
+{{- /* Fonts */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+{{- /* Theme CSS via Hugo Pipes: minified + fingerprinted */}}
+{{- $css := resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+{{- /* Favicon */}}
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+{{- /* RSS */}}
+{{ with .OutputFormats.Get "rss" -}}
+<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
+{{- end }}
+
+{{- if hugo.IsProduction }}
+<meta name="robots" content="index, follow">
+{{- else }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}

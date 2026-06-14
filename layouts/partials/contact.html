@@ -1,0 +1,89 @@
+{{- $forms := .Site.Params.forms -}}
+{{- $email := .Site.Params.contactEmail | default "hello@saas11.com" -}}
+{{- $success := $forms.successUrl | default "/thanks/" -}}
+<section class="section contact" id="contact">
+	<div class="container container--wide">
+		<div class="contact__grid">
+			<!-- Contact form -->
+			<div class="contact__main" data-reveal>
+				<span class="eyebrow">Contact</span>
+				<h2>Start a conversation</h2>
+				<p class="contact__lede">Tell us where you are in the transition and what you’re trying to deliver. We’ll come back with a point of view — and, if it’s a fit, a way to prove it.</p>
+
+				<form class="form" method="post"
+					action="{{ $forms.contactAction | default "#" }}"
+					{{ if $forms.contactAction }}data-ajax="true"{{ end }}
+					data-success="{{ $success | relLangURL }}">
+					<!-- honeypot (spam trap): real users leave this empty -->
+					<div class="form__hp" aria-hidden="true">
+						<label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
+					</div>
+					{{- if $forms.web3formsKey }}<input type="hidden" name="access_key" value="{{ $forms.web3formsKey }}">
+					<input type="hidden" name="redirect" value="{{ $success | absURL }}">
+					{{ else }}<input type="hidden" name="_next" value="{{ $success | absURL }}">
+					{{ end -}}
+					<input type="hidden" name="form" value="contact">
+					<input type="hidden" name="_subject" value="New SaaS 11 contact">
+
+					<div class="form__row">
+						<div class="field">
+							<label for="c-name">Name</label>
+							<input id="c-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+						</div>
+						<div class="field">
+							<label for="c-email">Work email</label>
+							<input id="c-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+						</div>
+					</div>
+					<div class="field">
+						<label for="c-company">Company</label>
+						<input id="c-company" name="company" type="text" autocomplete="organization" placeholder="Company">
+					</div>
+					<div class="field">
+						<label for="c-message">What are you working on?</label>
+						<textarea id="c-message" name="message" rows="5" required placeholder="A few lines on the problem, stack, and timeline…"></textarea>
+					</div>
+					<div class="form__actions">
+						<button type="submit" class="btn btn--primary">Send message <span class="arrow" aria-hidden="true">&rarr;</span></button>
+						<a class="form__alt" href="mailto:{{ $email }}">or email {{ $email }}</a>
+					</div>
+					<p class="form__status" role="status" aria-live="polite" hidden></p>
+				</form>
+			</div>
+
+			<!-- Newsletter + direct -->
+			<aside class="contact__aside" data-reveal style="transition-delay:80ms;">
+				<div class="signup">
+					<h3>The transition, in your inbox</h3>
+					<p>Occasional notes on AI, agents, cloud-native, and the economics of Service-as-Software. No spam, unsubscribe anytime.</p>
+					<form class="form form--inline" method="post"
+						action="{{ $forms.newsletterAction | default "#" }}"
+						{{ if $forms.newsletterAction }}data-ajax="true"{{ end }}
+						data-success="{{ $success | relLangURL }}">
+						<div class="form__hp" aria-hidden="true">
+							<label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
+						</div>
+						{{- if $forms.web3formsKey }}<input type="hidden" name="access_key" value="{{ $forms.web3formsKey }}">
+						<input type="hidden" name="redirect" value="{{ $success | absURL }}">
+						{{ else }}<input type="hidden" name="_next" value="{{ $success | absURL }}">
+						{{ end -}}
+						<input type="hidden" name="form" value="newsletter">
+						<input type="hidden" name="_subject" value="New SaaS 11 subscriber">
+						<label class="screen-reader-text" for="n-email">Email address</label>
+						<div class="signup__row">
+							<input id="n-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+							<button type="submit" class="btn btn--primary btn--sm">Subscribe</button>
+						</div>
+						<p class="form__status" role="status" aria-live="polite" hidden></p>
+					</form>
+				</div>
+
+				<div class="signup signup--alt">
+					<h3>Prefer to talk?</h3>
+					<p>Reach us directly and we’ll route you to the right person.</p>
+					<a class="btn btn--ghost" href="mailto:{{ $email }}">{{ $email }}</a>
+				</div>
+			</aside>
+		</div>
+	</div>
+</section>

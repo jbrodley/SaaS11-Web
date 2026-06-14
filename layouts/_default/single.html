@@ -1,0 +1,40 @@
+{{ define "main" }}
+<article>
+	<section class="page-hero">
+		<div class="container container--narrow">
+			<span class="eyebrow">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Insights{{ end }}</span>
+			<h1>{{ .Title }}</h1>
+			{{- if eq .Type "insights" }}
+			<div class="post-meta">
+				<span>{{ .Date.Format "January 2, 2006" }}</span>
+				<span>{{ .ReadingTime }} min read</span>
+				{{- with .Params.author }}<span>By {{ . }}</span>{{ end }}
+			</div>
+			{{- end }}
+		</div>
+	</section>
+
+	<section class="section section--tight">
+		<div class="container container--narrow">
+			{{- with .Params.image }}
+			<div style="margin-bottom:36px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border);">
+				<img src="{{ . | relURL }}" alt="{{ $.Title }}">
+			</div>
+			{{- end }}
+
+			<div class="entry">
+				{{ .Content }}
+			</div>
+
+			<footer class="entry-footer">
+				{{- with .Params.tags }}
+				<div class="tag-links">
+					{{- range . }}<a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">{{ . }}</a>{{ end }}
+				</div>
+				{{- end }}
+				<a class="btn btn--ghost btn--sm" href="{{ "/insights/" | relLangURL }}">← All insights</a>
+			</footer>
+		</div>
+	</section>
+</article>
+{{ end }}

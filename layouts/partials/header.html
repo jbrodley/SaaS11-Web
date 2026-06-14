@@ -1,0 +1,31 @@
+<header class="site-header" id="site-header">
+	<div class="container container--wide">
+		<div class="site-header__inner">
+			<div class="brand">
+				<a href="{{ "/" | relLangURL }}" rel="home">
+					<span class="brand__mark">S11</span>
+					<span class="brand__text">SaaS&nbsp;<b>11</b></span>
+				</a>
+			</div>
+
+			<nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+				<ul class="primary-nav__list">
+					{{- range .Site.Menus.main }}
+					<li class="{{ if $.IsMenuCurrent "main" . }}current-menu-item{{ end }}">
+						<a href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+					</li>
+					{{- end }}
+				</ul>
+			</nav>
+
+			<div class="header-actions">
+				<a class="btn btn--primary btn--sm btn--cta" href="{{ .Site.Params.navCtaUrl | default "/#contact" | relLangURL }}">
+					{{ .Site.Params.navCtaText | default "Start a conversation" }}
+				</a>
+				<button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+					<span></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</header>

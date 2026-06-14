@@ -1,0 +1,145 @@
+{{ define "body-class" }}home{{ end }}
+{{ define "main" }}
+{{- $p := .Params -}}
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+	<div class="hero__glow" aria-hidden="true"></div>
+	<div class="container">
+		<div class="hero__inner" data-reveal>
+			<span class="eyebrow">{{ $p.hero.eyebrow }}</span>
+			<h1>{{ $p.hero.title | safeHTML }}</h1>
+			<p class="hero__lede">{{ $p.hero.lede }}</p>
+			<div class="hero__cta">
+				<a class="btn btn--primary" href="{{ $p.hero.ctaPrimaryUrl | relLangURL }}">
+					{{ $p.hero.ctaPrimaryText }} <span class="arrow" aria-hidden="true">&rarr;</span>
+				</a>
+				<a class="btn btn--ghost" href="{{ $p.hero.ctaSecondaryUrl | relLangURL }}">{{ $p.hero.ctaSecondaryText }}</a>
+			</div>
+			<div class="hero__meta">
+				{{- range $p.hero.stats }}
+				<div class="stat"><strong>{{ .num }}</strong><span>{{ .label }}</span></div>
+				{{- end }}
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ===================== TECH TICKER ===================== -->
+<div class="ticker" aria-hidden="true">
+	<div class="ticker__track">
+		{{- range $p.ticker }}<span class="ticker__item">{{ . | safeHTML }}</span>{{ end }}
+		{{- range $p.ticker }}<span class="ticker__item">{{ . | safeHTML }}</span>{{ end }}
+	</div>
+</div>
+
+<!-- ===================== CAPABILITIES ===================== -->
+<section class="section" id="capabilities">
+	<div class="container container--wide">
+		<div class="section-head" data-reveal>
+			<span class="eyebrow">{{ $p.capabilities.eyebrow }}</span>
+			<h2>{{ $p.capabilities.title | safeHTML }}</h2>
+			<p>{{ $p.capabilities.intro }}</p>
+		</div>
+		<div class="grid grid--3">
+			{{- range $i, $cap := $p.capabilities.items }}
+			<article class="card" data-reveal style="transition-delay: {{ mul (mod $i 3) 80 }}ms;">
+				<div class="card__icon" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $cap.icon }}"/></svg>
+				</div>
+				<h3>{{ $cap.title | safeHTML }}</h3>
+				<p>{{ $cap.desc }}</p>
+				<ul class="card__tags">
+					{{- range $cap.tags }}<li>{{ . }}</li>{{ end }}
+				</ul>
+			</article>
+			{{- end }}
+		</div>
+	</div>
+</section>
+
+<!-- ===================== THESIS (Service-as-Software, woven in) ===================== -->
+<section class="section thesis" id="thesis">
+	<div class="container container--wide">
+		<div data-reveal>
+			<span class="eyebrow">{{ $p.thesis.eyebrow }}</span>
+			<p class="thesis__lede" style="margin-top:16px;">{{ $p.thesis.lede | safeHTML }}</p>
+			<div class="grid grid--3 pillars">
+				{{- range $i, $pl := $p.thesis.pillars }}
+				<div class="pillar" data-reveal style="transition-delay:{{ mul $i 80 }}ms;">
+					<span class="pillar__num">{{ $pl.num }}</span>
+					<h3>{{ $pl.title }}</h3>
+					<p>{{ $pl.desc }}</p>
+				</div>
+				{{- end }}
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ===================== APPROACH ===================== -->
+<section class="section" id="approach">
+	<div class="container container--wide">
+		<div class="section-head" data-reveal>
+			<span class="eyebrow">{{ $p.approach.eyebrow }}</span>
+			<h2>{{ $p.approach.title | safeHTML }}</h2>
+			<p>{{ $p.approach.intro }}</p>
+		</div>
+		<div class="steps">
+			{{- range $p.approach.steps }}
+			<div class="step" data-reveal>
+				<div class="step__no" aria-hidden="true"></div>
+				<div>
+					<h3>{{ .title }}</h3>
+					<p>{{ .desc }}</p>
+				</div>
+			</div>
+			{{- end }}
+		</div>
+	</div>
+</section>
+
+<!-- ===================== STATS BAND ===================== -->
+<section class="section section--tight">
+	<div class="container container--wide" data-reveal>
+		<div class="statband">
+			{{- range $p.stats }}
+			<div class="stat"><strong>{{ .num }}</strong><span>{{ .label }}</span></div>
+			{{- end }}
+		</div>
+	</div>
+</section>
+
+<!-- ===================== INSIGHTS ===================== -->
+{{- $posts := first 3 (where .Site.RegularPages "Type" "insights") }}
+{{- if $posts }}
+<section class="section" id="insights">
+	<div class="container container--wide">
+		<div class="section-head" data-reveal style="display:flex; justify-content:space-between; align-items:flex-end; max-width:none; gap:24px; flex-wrap:wrap;">
+			<div style="max-width:640px;">
+				<span class="eyebrow">Insights</span>
+				<h2>Notes from the transition</h2>
+			</div>
+			<a class="btn btn--ghost btn--sm" href="{{ "/insights/" | relLangURL }}">All insights <span class="arrow" aria-hidden="true">&rarr;</span></a>
+		</div>
+		<div class="grid grid--3">
+			{{- range $posts }}{{ partial "post-card.html" . }}{{ end }}
+		</div>
+	</div>
+</section>
+{{- end }}
+
+<!-- ===================== CTA BAND ===================== -->
+<section class="section cta-band">
+	<div class="container container--wide" data-reveal>
+		<div class="cta-band__inner">
+			<h2>{{ $p.cta.title }}</h2>
+			<p>{{ $p.cta.text }}</p>
+			<a class="btn" href="{{ $p.cta.url | relLangURL }}">{{ $p.cta.button }} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+		</div>
+	</div>
+</section>
+
+<!-- ===================== CONTACT + NEWSLETTER ===================== -->
+{{ partial "contact.html" . }}
+{{ end }}

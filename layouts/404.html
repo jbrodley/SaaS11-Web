@@ -1,0 +1,12 @@
+{{ define "main" }}
+<section class="container container--narrow">
+	<div class="notice-block">
+		<div class="big" aria-hidden="true">404</div>
+		<h2>This page took a different path</h2>
+		<p style="color:var(--muted); max-width:48ch; margin:12px auto 28px;">
+			The page you’re looking for isn’t here. Head back to the homepage.
+		</p>
+		<a class="btn btn--primary" href="{{ "/" | relLangURL }}">Back to home <span class="arrow" aria-hidden="true">&rarr;</span></a>
+	</div>
+</section>
+{{ end }}

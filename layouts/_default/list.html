@@ -1,0 +1,30 @@
+{{ define "main" }}
+<section class="page-hero">
+	<div class="container container--wide">
+		<span class="eyebrow">{{ if eq .Section "insights" }}Insights{{ else }}{{ .Site.Title }}{{ end }}</span>
+		<h1>{{ if .IsHome }}Notes from the transition{{ else }}{{ .Title }}{{ end }}</h1>
+		{{- with .Description }}<p>{{ . }}</p>{{ else }}
+		<p>Field notes on AI, agents, cloud-native platforms, and the economics of Service-as-Software.</p>
+		{{- end }}
+	</div>
+</section>
+
+<section class="section section--tight">
+	<div class="container container--wide">
+		{{- $pages := .Paginator.Pages }}
+		{{- if $pages }}
+		<div class="grid grid--3">
+			{{- range $pages }}{{ partial "post-card.html" . }}{{ end }}
+		</div>
+		{{- template "_internal/pagination.html" . }}
+		{{- else }}
+		<div class="notice-block">
+			<div class="big" aria-hidden="true">—</div>
+			<h2>Nothing here yet</h2>
+			<p style="color:var(--muted); max-width:46ch; margin:12px auto 24px;">New writing is on the way. Check back soon.</p>
+			<a class="btn btn--ghost" href="{{ "/" | relLangURL }}">Back to home</a>
+		</div>
+		{{- end }}
+	</div>
+</section>
+{{ end }}

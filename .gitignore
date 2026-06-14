@@ -1,0 +1,15 @@
+# Hugo build output
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# Lambda packaging
+scripts/lambda/function.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+node_modules/

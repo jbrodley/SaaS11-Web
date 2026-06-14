@@ -1,0 +1,54 @@
+{{- $email := .Site.Params.contactEmail | default "hello@saas11.com" -}}
+{{- $social := .Site.Params.social -}}
+<footer class="site-footer">
+	<div class="container container--wide">
+		<div class="footer-grid">
+			<div class="footer-brand">
+				<a href="{{ "/" | relLangURL }}" class="brand" rel="home">
+					<span class="brand__mark">S11</span>
+					<span class="brand__text">SaaS&nbsp;<b>11</b></span>
+				</a>
+				<p>{{ .Site.Params.footerBlurb }}</p>
+				{{- if $social }}
+				<div class="social" style="margin-top:20px;">
+					{{- with $social.linkedin }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95C20.4 8.75 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>{{ end }}
+					{{- with $social.x }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-7.1 8.1L22 21h-6.3l-4.9-6.4L5 21H2l7.6-8.7L2 3h6.4l4.4 5.8L17.5 3z"/></svg></a>{{ end }}
+					{{- with $social.github }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg></a>{{ end }}
+				</div>
+				{{- end }}
+			</div>
+
+			<div class="footer-col">
+				<h4>Capabilities</h4>
+				<ul>
+					<li><a href="{{ "/#capabilities" | relLangURL }}">AI &amp; Agentic Systems</a></li>
+					<li><a href="{{ "/#capabilities" | relLangURL }}">Cloud Native &amp; Kubernetes</a></li>
+					<li><a href="{{ "/#capabilities" | relLangURL }}">DevOps, SRE &amp; Platform</a></li>
+					<li><a href="{{ "/#capabilities" | relLangURL }}">FinOps &amp; Pricing</a></li>
+				</ul>
+			</div>
+
+			<div class="footer-col">
+				<h4>Company</h4>
+				<ul>
+					{{- range .Site.Menus.footer }}
+					<li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+					{{- end }}
+				</ul>
+			</div>
+
+			<div class="footer-col">
+				<h4>Get in touch</h4>
+				<ul>
+					<li><a href="mailto:{{ $email }}">{{ $email }}</a></li>
+					<li><a href="{{ .Site.Params.navCtaUrl | default "/#contact" | relLangURL }}">Start a conversation</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<span>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</span>
+			<span>Service delivered as software.</span>
+		</div>
+	</div>
+</footer>

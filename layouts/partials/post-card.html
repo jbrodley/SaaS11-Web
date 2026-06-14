@@ -1,0 +1,20 @@
+{{- /* Expects a Page as context (.) */ -}}
+<article class="post-card" data-reveal>
+	<a class="post-card__thumb" href="{{ .RelPermalink }}">
+		{{- $img := .Params.image }}
+		{{- with $img }}
+		<img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
+		{{- else }}
+		<span style="display:grid;place-items:center;height:100%;font-family:var(--font-mono);color:var(--faint);">SaaS&nbsp;11</span>
+		{{- end }}
+	</a>
+	<div class="post-card__body">
+		<span class="post-card__meta">
+			{{- with .Params.categories }}{{ index . 0 }} &middot; {{ end -}}
+			{{ .Date.Format "Jan 2, 2006" }} &middot; {{ .ReadingTime }} min read
+		</span>
+		<h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+		<p>{{ .Summary | plainify | truncate 140 }}</p>
+		<span class="post-card__more">Read →</span>
+	</div>
+</article>
