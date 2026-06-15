@@ -33,32 +33,30 @@
 	</div>
 </div>
 
-<!-- ===================== CAPABILITIES ===================== -->
-<section class="section" id="capabilities">
+<!-- ===================== THREE DIMENSIONS ===================== -->
+<section class="section" id="dimensions">
 	<div class="container container--wide">
 		<div class="section-head" data-reveal>
-			<span class="eyebrow">{{ $p.capabilities.eyebrow }}</span>
-			<h2>{{ $p.capabilities.title | safeHTML }}</h2>
-			<p>{{ $p.capabilities.intro }}</p>
+			<span class="eyebrow">What we do</span>
+			<h2>Three dimensions, one team</h2>
+			<p>SaaS transformations fail when they treat technology in isolation. We work across all three — because the challenge does.</p>
 		</div>
 		<div class="grid grid--3">
-			{{- range $i, $cap := $p.capabilities.items }}
+			{{- range $i, $dim := $p.dimensions }}
 			<article class="card" data-reveal style="transition-delay: {{ mul (mod $i 3) 80 }}ms;">
 				<div class="card__icon" aria-hidden="true">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $cap.icon }}"/></svg>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $dim.icon }}"/></svg>
 				</div>
-				<h3>{{ $cap.title | safeHTML }}</h3>
-				<p>{{ $cap.desc }}</p>
-				<ul class="card__tags">
-					{{- range $cap.tags }}<li>{{ . }}</li>{{ end }}
-				</ul>
+				<h3>{{ $dim.label | safeHTML }}</h3>
+				<p>{{ $dim.desc | safeHTML }}</p>
+				<a class="card__link" href="{{ $dim.url | relLangURL }}">Explore {{ $dim.label }} <span class="arrow" aria-hidden="true">&rarr;</span></a>
 			</article>
 			{{- end }}
 		</div>
 	</div>
 </section>
 
-<!-- ===================== THESIS (Service-as-Software, woven in) ===================== -->
+<!-- ===================== THESIS ===================== -->
 <section class="section thesis" id="thesis">
 	<div class="container container--wide">
 		<div data-reveal>
@@ -76,58 +74,6 @@
 		</div>
 	</div>
 </section>
-
-<!-- ===================== APPROACH ===================== -->
-<section class="section" id="approach">
-	<div class="container container--wide">
-		<div class="section-head" data-reveal>
-			<span class="eyebrow">{{ $p.approach.eyebrow }}</span>
-			<h2>{{ $p.approach.title | safeHTML }}</h2>
-			<p>{{ $p.approach.intro }}</p>
-		</div>
-		<div class="steps">
-			{{- range $p.approach.steps }}
-			<div class="step" data-reveal>
-				<div class="step__no" aria-hidden="true"></div>
-				<div>
-					<h3>{{ .title }}</h3>
-					<p>{{ .desc }}</p>
-				</div>
-			</div>
-			{{- end }}
-		</div>
-	</div>
-</section>
-
-<!-- ===================== STATS BAND ===================== -->
-<section class="section section--tight">
-	<div class="container container--wide" data-reveal>
-		<div class="statband">
-			{{- range $p.stats }}
-			<div class="stat"><strong>{{ .num }}</strong><span>{{ .label }}</span></div>
-			{{- end }}
-		</div>
-	</div>
-</section>
-
-<!-- ===================== INSIGHTS ===================== -->
-{{- $posts := first 3 (where .Site.RegularPages "Type" "insights") }}
-{{- if $posts }}
-<section class="section" id="insights">
-	<div class="container container--wide">
-		<div class="section-head" data-reveal style="display:flex; justify-content:space-between; align-items:flex-end; max-width:none; gap:24px; flex-wrap:wrap;">
-			<div style="max-width:640px;">
-				<span class="eyebrow">Insights</span>
-				<h2>Notes from the transition</h2>
-			</div>
-			<a class="btn btn--ghost btn--sm" href="{{ "/insights/" | relLangURL }}">All insights <span class="arrow" aria-hidden="true">&rarr;</span></a>
-		</div>
-		<div class="grid grid--3">
-			{{- range $posts }}{{ partial "post-card.html" . }}{{ end }}
-		</div>
-	</div>
-</section>
-{{- end }}
 
 <!-- ===================== CTA BAND ===================== -->
 <section class="section cta-band">

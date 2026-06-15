@@ -147,6 +147,7 @@ ul, ol { padding-left: 1.2em; }
 .container--narrow { max-width: 760px; }
 
 .section { padding-block: clamp(56px, 8vw, 110px); position: relative; }
+.section[id], #contact { scroll-margin-top: 80px; }
 .section--tight { padding-block: clamp(40px, 5vw, 64px); }
 
 .eyebrow {
@@ -433,9 +434,202 @@ ul, ol { padding-left: 1.2em; }
   border-radius: 6px;
   padding: 4px 8px;
 }
+.card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: 12px;
+  transition: gap .2s ease;
+}
+.card__link:hover { gap: 10px; color: #8fb0ff; }
+.card__link .arrow { transition: transform .2s ease; }
+.card__link:hover .arrow { transform: translateX(2px); }
 
 /* =========================================================================
-   Thesis (Service-as-Software) — woven subtly into approach band
+   Crew / The Cloud Pod proof-point
+   ========================================================================= */
+.crew { background: var(--bg-2); }
+.crew-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.crew-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform .22s ease, border-color .22s ease;
+  overflow: hidden;
+}
+.crew-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .22s ease;
+  pointer-events: none;
+}
+.crew-card:hover { transform: translateY(-4px); }
+.crew-card:hover::before { opacity: .9; }
+.crew-card--founder {
+  border-color: rgba(91, 140, 255, 0.3);
+  background: linear-gradient(180deg, rgba(91,140,255,0.08), rgba(168,85,247,0.04));
+}
+.crew-card--founder::before { opacity: .4; }
+.crew-card__initials {
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--grad-soft);
+  border: 1px solid var(--border-2);
+  margin: 0 auto 16px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--heading);
+}
+.crew-card--founder .crew-card__initials {
+  background: var(--grad);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 18px -6px rgba(91,140,255,0.6);
+}
+.crew-card h3 { font-size: var(--step-1); margin-bottom: 4px; }
+.crew-card__role { color: var(--muted); font-size: 0.88rem; margin-bottom: 10px; }
+.crew-card__focus {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-3);
+}
+
+@media (max-width: 900px) {
+  .crew-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .crew-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================================
+   Founder card (about page)
+   ========================================================================= */
+.founder-card {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 36px;
+  align-items: start;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.founder-card__initials {
+  width: 120px; height: 120px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 24px -8px rgba(91,140,255,0.5);
+}
+.founder-card__body h2 { font-size: var(--step-3); margin-bottom: 4px; }
+.founder-card__title {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.founder-card__body p { color: var(--muted); font-size: 1.02rem; line-height: 1.65; max-width: 60ch; }
+.founder-card__focus {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.founder-card__focus li {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+@media (max-width: 640px) {
+  .founder-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 28px 20px;
+  }
+  .founder-card__initials { width: 80px; height: 80px; font-size: 1.5rem; }
+  .founder-card__focus { justify-content: center; }
+}
+
+/* =========================================================================
+   Social share buttons (article footer)
+   ========================================================================= */
+.share-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.share-bar__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-right: 4px;
+}
+.share-bar a, .share-bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--border-2);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+  text-decoration: none;
+}
+.share-bar a:hover, .share-bar button:hover {
+  border-color: var(--accent);
+  color: var(--heading);
+  background: rgba(91,140,255,0.06);
+}
+.share-bar svg { width: 14px; height: 14px; }
+.share-bar .copy-ok { color: var(--accent-3); font-size: 0.8rem; margin-left: 4px; }
+
    ========================================================================= */
 .thesis {
   background:
@@ -555,7 +749,7 @@ ul, ol { padding-left: 1.2em; }
    Footer
    ========================================================================= */
 .site-footer { border-top: 1px solid var(--border); background: var(--bg-2); padding-block: clamp(48px, 7vw, 80px) 32px; margin-top: 40px; }
-.footer-grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 40px; }
 .footer-brand p { color: var(--muted); max-width: 320px; margin-top: 16px; font-size: 0.95rem; }
 .footer-col h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); margin-bottom: 16px; }
 .footer-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
@@ -816,6 +1010,16 @@ ul, ol { padding-left: 1.2em; }
 }
 .form__status.is-ok { border-color: rgba(34, 211, 238, 0.5); background: rgba(34, 211, 238, 0.08); color: #bdf3ff; }
 .form__status.is-error { border-color: rgba(255, 99, 99, 0.5); background: rgba(255, 99, 99, 0.08); color: #ffc9c9; }
+.form__status.is-error { white-space: pre-line; }
+
+/* Field-level error messages */
+.field__error {
+  display: block;
+  color: #ffc9c9;
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+[aria-invalid="true"] { border-color: rgba(255, 99, 99, 0.6) !important; }
 
 /* Aside: newsletter + direct */
 .contact__aside { display: grid; gap: 18px; }

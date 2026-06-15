@@ -1,0 +1,89 @@
+{{ define "body-class" }}capabilities{{ end }}
+{{ define "main" }}
+{{- $p := .Params -}}
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+	<div class="hero__glow" aria-hidden="true"></div>
+	<div class="container">
+		<div class="hero__inner" data-reveal>
+			<span class="eyebrow">{{ $p.hero.eyebrow }}</span>
+			<h1>{{ $p.hero.title | safeHTML }}</h1>
+			<p class="hero__lede">{{ $p.hero.lede }}</p>
+		</div>
+	</div>
+</section>
+
+<!-- ===================== DIMENSIONS ===================== -->
+{{- range $di, $dim := $p.dimensions }}
+<section class="section" id="{{ $dim.label | urlize }}">
+	<div class="container container--wide">
+		<div class="section-head" data-reveal>
+			<span class="eyebrow">{{ $dim.label }}</span>
+			<h2>{{ $dim.label }}</h2>
+			<p>{{ $dim.intro }}</p>
+		</div>
+		<div class="grid grid--3">
+			{{- range $i, $cap := $dim.items }}
+			<article class="card" data-reveal style="transition-delay: {{ mul (mod $i 3) 80 }}ms;">
+				<div class="card__icon" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $cap.icon }}"/></svg>
+				</div>
+				<h3>{{ $cap.title | safeHTML }}</h3>
+				<p>{{ $cap.desc }}</p>
+				<ul class="card__tags">
+					{{- range $cap.tags }}<li>{{ . }}</li>{{ end }}
+				</ul>
+			</article>
+			{{- end }}
+		</div>
+	</div>
+</section>
+{{- end }}
+
+<!-- ===================== APPROACH ===================== -->
+<section class="section" id="approach">
+	<div class="container container--wide">
+		<div class="section-head" data-reveal>
+			<span class="eyebrow">{{ $p.approach.eyebrow }}</span>
+			<h2>{{ $p.approach.title | safeHTML }}</h2>
+			<p>{{ $p.approach.intro }}</p>
+		</div>
+		<div class="steps">
+			{{- range $p.approach.steps }}
+			<div class="step" data-reveal>
+				<div class="step__no" aria-hidden="true"></div>
+				<div>
+					<h3>{{ .title }}</h3>
+					<p>{{ .desc }}</p>
+				</div>
+			</div>
+			{{- end }}
+		</div>
+	</div>
+</section>
+
+<!-- ===================== STATS BAND ===================== -->
+<section class="section section--tight">
+	<div class="container container--wide" data-reveal>
+		<div class="statband">
+			{{- range $p.stats }}
+			<div class="stat"><strong>{{ .num }}</strong><span>{{ .label }}</span></div>
+			{{- end }}
+		</div>
+	</div>
+</section>
+
+<!-- ===================== CTA BAND ===================== -->
+<section class="section cta-band">
+	<div class="container container--wide" data-reveal>
+		<div class="cta-band__inner">
+			<h2>{{ $p.cta.title }}</h2>
+			<p>{{ $p.cta.text }}</p>
+			<a class="btn" href="{{ $p.cta.url | relLangURL }}">{{ $p.cta.button }} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+		</div>
+	</div>
+</section>
+
+{{ partial "contact.html" . }}
+{{ end }}

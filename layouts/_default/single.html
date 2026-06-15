@@ -26,6 +26,24 @@
 				{{ .Content }}
 			</div>
 
+			{{- if eq .Type "insights" }}
+			<div class="share-bar">
+				<span class="share-bar__label">Share</span>
+				<a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+					<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95C20.4 8.75 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg>
+					LinkedIn
+				</a>
+				<a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener" aria-label="Share on X">
+					<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-7.1 8.1L22 21h-6.3l-4.9-6.4L5 21H2l7.6-8.7L2 3h6.4l4.4 5.8L17.5 3z"/></svg>
+					X
+				</a>
+				<button class="copy-link-btn" data-url="{{ .Permalink }}" aria-label="Copy link">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+					Copy link
+				</button>
+			</div>
+			{{- end }}
+
 			<footer class="entry-footer">
 				{{- with .Params.tags }}
 				<div class="tag-links">

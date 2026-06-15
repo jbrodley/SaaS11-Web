@@ -1,5 +1,5 @@
 {{- $forms := .Site.Params.forms -}}
-{{- $email := .Site.Params.contactEmail | default "hello@saas11.com" -}}
+{{- $turnstile := $forms.turnstileSiteKey -}}
 {{- $success := $forms.successUrl | default "/thanks/" -}}
 <section class="section contact" id="contact">
 	<div class="container container--wide">
@@ -8,7 +8,7 @@
 			<div class="contact__main" data-reveal>
 				<span class="eyebrow">Contact</span>
 				<h2>Start a conversation</h2>
-				<p class="contact__lede">Tell us where you are in the transition and what you’re trying to deliver. We’ll come back with a point of view — and, if it’s a fit, a way to prove it.</p>
+				<p class="contact__lede">Tell us where you are in the transition and what you're trying to deliver. We'll come back with a point of view — and, if it's a fit, a way to prove it.</p>
 
 				<form class="form" method="post"
 					action="{{ $forms.contactAction | default "#" }}"
@@ -43,15 +43,17 @@
 						<label for="c-message">What are you working on?</label>
 						<textarea id="c-message" name="message" rows="5" required placeholder="A few lines on the problem, stack, and timeline…"></textarea>
 					</div>
+					{{- if $turnstile }}
+					<div class="cf-turnstile" data-sitekey="{{ $turnstile }}" data-theme="dark"></div>
+					{{- end }}
 					<div class="form__actions">
 						<button type="submit" class="btn btn--primary">Send message <span class="arrow" aria-hidden="true">&rarr;</span></button>
-						<a class="form__alt" href="mailto:{{ $email }}">or email {{ $email }}</a>
 					</div>
 					<p class="form__status" role="status" aria-live="polite" hidden></p>
 				</form>
 			</div>
 
-			<!-- Newsletter + direct -->
+			<!-- Newsletter + info -->
 			<aside class="contact__aside" data-reveal style="transition-delay:80ms;">
 				<div class="signup">
 					<h3>The transition, in your inbox</h3>
@@ -74,14 +76,17 @@
 							<input id="n-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
 							<button type="submit" class="btn btn--primary btn--sm">Subscribe</button>
 						</div>
+						{{- if $turnstile }}
+						<div class="cf-turnstile" data-sitekey="{{ $turnstile }}" data-theme="dark" data-size="compact"></div>
+						{{- end }}
 						<p class="form__status" role="status" aria-live="polite" hidden></p>
 					</form>
 				</div>
 
 				<div class="signup signup--alt">
 					<h3>Prefer to talk?</h3>
-					<p>Reach us directly and we’ll route you to the right person.</p>
-					<a class="btn btn--ghost" href="mailto:{{ $email }}">{{ $email }}</a>
+					<p>Skip the form — we respond to every message within one business day.</p>
+					<a class="btn btn--ghost" href="/#contact">Start a conversation <span class="arrow" aria-hidden="true">&rarr;</span></a>
 				</div>
 			</aside>
 		</div>

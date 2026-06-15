@@ -15,6 +15,37 @@
 			window.addEventListener('scroll', onScroll, { passive: true });
 		}
 
+		/* ---- Smooth anchor scrolling (respects sticky header) ---- */
+		document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+			anchor.addEventListener('click', function (e) {
+				var id = this.getAttribute('href').slice(1);
+				var target = document.getElementById(id);
+				if (!target) return;
+				e.preventDefault();
+				var headerH = header ? header.offsetHeight : 0;
+				var top = target.getBoundingClientRect().top + window.scrollY - headerH - 8;
+				window.scrollTo({ top: top, behavior: 'smooth' });
+				history.replaceState(null, '', '#' + id);
+				// Close mobile nav if open
+				if (nav && nav.classList.contains('is-open')) {
+					nav.classList.remove('is-open');
+					if (toggle) toggle.setAttribute('aria-expanded', 'false');
+				}
+			});
+		});
+
+		/* ---- Handle hash on page load (cross-page anchors) ---- */
+		if (window.location.hash) {
+			var hashTarget = document.getElementById(window.location.hash.slice(1));
+			if (hashTarget) {
+				setTimeout(function () {
+					var headerH = header ? header.offsetHeight : 0;
+					var top = hashTarget.getBoundingClientRect().top + window.scrollY - headerH - 8;
+					window.scrollTo({ top: top, behavior: 'smooth' });
+				}, 100);
+			}
+		}
+
 		/* ---- Mobile nav toggle ---- */
 		var toggle = document.getElementById('nav-toggle');
 		var nav = document.getElementById('primary-nav');
@@ -56,6 +87,19 @@
 			}
 		}
 
+		/* ---- Copy link button ---- */
+		document.querySelectorAll('.copy-link-btn').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				var url = btn.getAttribute('data-url');
+				navigator.clipboard.writeText(url).then(function () {
+					var original = btn.innerHTML;
+					btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
+					btn.classList.add('copy-ok');
+					setTimeout(function () { btn.innerHTML = original; btn.classList.remove('copy-ok'); }, 2000);
+				});
+			});
+		});
+
 		/* ---- Forms: progressive-enhancement AJAX submit ---- */
 		document.querySelectorAll('form.form[data-ajax="true"]').forEach(function (form) {
 			form.addEventListener('submit', function (e) {
@@ -70,9 +114,13 @@
 				var status = form.querySelector('.form__status');
 				var submitBtn = form.querySelector('button[type="submit"]');
 				var original = submitBtn ? submitBtn.innerHTML : '';
+				var successUrl = form.getAttribute('data-success') || '/thanks/';
 
 				if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = 'Sending…'; }
 				if (status) { status.hidden = true; status.className = 'form__status'; }
+				// Clear any previous field errors
+				form.querySelectorAll('.field__error').forEach(function (el) { el.remove(); });
+				form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
 
 				fetch(action, {
 					method: 'POST',
@@ -81,20 +129,45 @@
 				})
 					.then(function (res) {
 						if (res.ok) {
-							form.reset();
-							if (status) {
-								status.textContent = form.getAttribute('data-msg-ok') ||
-									'Thanks — your message is in. We’ll be in touch shortly.';
-								status.classList.add('is-ok');
-								status.hidden = false;
-							}
-						} else {
-							throw new Error('Bad response ' + res.status);
+							window.location.href = successUrl;
+							return;
 						}
+						// Try to parse Formspree error JSON for field-level messages
+						return res.json().then(function (data) {
+							var errors = [];
+							// Formspree wraps field errors in data.errors
+							if (data && data.errors) {
+								data.errors.forEach(function (err) {
+									var msg = err.message || err.code || '';
+									var field = err.field || '';
+									if (field) {
+										// Show error under the specific field
+										var input = form.querySelector('[name="' + field + '"]');
+										if (input) {
+											input.setAttribute('aria-invalid', 'true');
+											var errEl = document.createElement('span');
+											errEl.className = 'field__error';
+											errEl.textContent = msg;
+											input.parentNode.appendChild(errEl);
+										}
+										errors.push(field + ': ' + msg);
+									} else {
+										errors.push(msg);
+									}
+								});
+							}
+							throw new Error(errors.length ? errors.join('\n') : 'Submission failed (' + res.status + '). Please try again.');
+						}).catch(function (parseErr) {
+							// If JSON parsing failed, throw the parse error
+							if (parseErr instanceof SyntaxError) {
+								throw new Error('Submission failed (' + res.status + '). Please try again.');
+							}
+							throw parseErr;
+						});
 					})
-					.catch(function () {
+					.catch(function (err) {
 						if (status) {
-							status.textContent = 'Something went wrong. Please email us directly and we’ll sort it out.';
+							status.textContent = err.message || 'Something went wrong. Please try again.';
 							status.classList.add('is-error');
 							status.hidden = false;
 						}

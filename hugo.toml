@@ -14,15 +14,15 @@ enableGitInfo = false
   pagerSize = 9
 
 [params]
-  description = "SaaS 11 helps software companies make the leap from selling tools to delivering outcomes — AI & agentic systems, cloud-native platforms, and the FinOps and pricing models the next era runs on."
+  description = "SaaS 11 assembles the specialists your transformation demands — across technology, organization, and leadership — to help software companies deliver outcomes, not just tools."
   # Brand
   brandName = "SaaS 11"
   # Header call-to-action button
   navCtaText = "Start a conversation"
   navCtaUrl = "/#contact"
   # Contact + social (used in footer)
-  contactEmail = "hello@saas11.com"
-  footerBlurb = "A consultancy for the Service-as-Software era — helping software companies turn AI, agents, and cloud-native platforms into completed work, delivered as software."
+  contactEmail = ""      # Removed to avoid spam — contact form is the only channel
+  footerBlurb = "The assembled team for the AI era — technology, organization, and leadership specialists who build, operate, and transfer so you own the result."
 
   [params.social]
     linkedin = ""
@@ -39,24 +39,32 @@ enableGitInfo = false
   #             https://api.web3forms.com/submit (the key is injected as a
   #             hidden field automatically).
   [params.forms]
-    contactAction = ""      # Formspree form URL (or https://api.web3forms.com/submit)
-    newsletterAction = ""   # same provider; can reuse the contact endpoint
+    contactAction = "https://formspree.io/f/xwvjaavj"
+    newsletterAction = "https://formspree.io/f/xbdeqqgn"
     web3formsKey = ""       # only for Web3Forms; leave blank for Formspree
+    # Cloudflare Turnstile site key (required when Formspree captcha is enabled).
+    # Get yours at: https://dash.cloudflare.com/?to=/:account/turnstile
+    # Or check Formspree form Settings → Spam Protection for the key.
+    turnstileSiteKey = "0x4AAAAAADkq5mFz6VYoVzQ4"
     # Where the handler redirects on success for the no-JS fallback.
     successUrl = "/thanks/"
 
 # Primary navigation
 [[menus.main]]
   name = "Capabilities"
-  url = "/#capabilities"
+  url = "/capabilities/"
   weight = 10
 [[menus.main]]
-  name = "Approach"
-  url = "/#approach"
-  weight = 20
+  name = "About"
+  url = "/about/"
+  weight = 15
 [[menus.main]]
   name = "Point of view"
   url = "/#thesis"
+  weight = 20
+[[menus.main]]
+  name = "Approach"
+  url = "/#approach"
   weight = 30
 [[menus.main]]
   name = "Insights"
@@ -69,8 +77,8 @@ enableGitInfo = false
 
 # Footer "Company" column
 [[menus.footer]]
-  name = "Approach"
-  url = "/#approach"
+  name = "Capabilities"
+  url = "/capabilities/"
   weight = 10
 [[menus.footer]]
   name = "Insights"
@@ -91,6 +99,11 @@ enableGitInfo = false
 [outputs]
   home = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
 
 [taxonomies]
   tag = "tags"

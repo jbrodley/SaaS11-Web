@@ -1,0 +1,77 @@
+{{ define "body-class" }}about{{ end }}
+{{ define "main" }}
+{{- $p := .Params -}}
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+	<div class="hero__glow" aria-hidden="true"></div>
+	<div class="container">
+		<div class="hero__inner" data-reveal>
+			<span class="eyebrow">{{ $p.hero.eyebrow }}</span>
+			<h1>{{ $p.hero.title | safeHTML }}</h1>
+			<p class="hero__lede">{{ $p.hero.lede }}</p>
+		</div>
+	</div>
+</section>
+
+<!-- ===================== FOUNDER ===================== -->
+{{- with $p.founder }}
+<section class="section founder-section">
+	<div class="container container--wide">
+		<div class="founder-card" data-reveal>
+			<div class="founder-card__initials" aria-hidden="true">JB</div>
+			<div class="founder-card__body">
+				<h2>{{ .name }}</h2>
+				<p class="founder-card__title">{{ .title }}</p>
+				<p>{{ .bio }}</p>
+				<ul class="founder-card__focus">
+					{{- range .focus }}<li>{{ . }}</li>{{ end }}
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+{{- end }}
+
+<!-- ===================== CASE STUDY: THE CLOUD POD ===================== -->
+{{- with $p.case_study }}
+<section class="section crew" id="case-study">
+	<div class="container container--wide">
+		<div class="section-head" data-reveal>
+			<span class="eyebrow">{{ .eyebrow }}</span>
+			<h2>{{ .title | safeHTML }}</h2>
+			<p>{{ .intro }}</p>
+			{{- with .link }}
+			<a class="btn btn--ghost btn--sm" href="{{ .url }}" target="_blank" rel="noopener">{{ .text }} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+			{{- end }}
+		</div>
+		<div class="crew-grid">
+			{{- range $i, $m := .members }}
+			<article class="crew-card{{ if $m.founder }} crew-card--founder{{ end }}" data-reveal style="transition-delay: {{ mul (mod $i 4) 80 }}ms;">
+				<div class="crew-card__initials" aria-hidden="true">
+					{{- $parts := split $m.name " " -}}
+					{{- range $parts -}}{{ substr . 0 1 }}{{- end -}}
+				</div>
+				<h3>{{ $m.name | safeHTML }}</h3>
+				<p class="crew-card__role">{{ $m.role | safeHTML }}</p>
+				<p class="crew-card__focus">{{ $m.focus | safeHTML }}</p>
+			</article>
+			{{- end }}
+		</div>
+	</div>
+</section>
+{{- end }}
+
+<!-- ===================== CTA BAND ===================== -->
+<section class="section cta-band">
+	<div class="container container--wide" data-reveal>
+		<div class="cta-band__inner">
+			<h2>{{ $p.cta.title }}</h2>
+			<p>{{ $p.cta.text }}</p>
+			<a class="btn" href="{{ $p.cta.url | relLangURL }}">{{ $p.cta.button }} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+		</div>
+	</div>
+</section>
+
+{{ partial "contact.html" . }}
+{{ end }}

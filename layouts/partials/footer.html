@@ -1,4 +1,3 @@
-{{- $email := .Site.Params.contactEmail | default "hello@saas11.com" -}}
 {{- $social := .Site.Params.social -}}
 <footer class="site-footer">
 	<div class="container container--wide">
@@ -19,12 +18,22 @@
 			</div>
 
 			<div class="footer-col">
-				<h4>Capabilities</h4>
+				<h4>Technology</h4>
 				<ul>
-					<li><a href="{{ "/#capabilities" | relLangURL }}">AI &amp; Agentic Systems</a></li>
-					<li><a href="{{ "/#capabilities" | relLangURL }}">Cloud Native &amp; Kubernetes</a></li>
-					<li><a href="{{ "/#capabilities" | relLangURL }}">DevOps, SRE &amp; Platform</a></li>
-					<li><a href="{{ "/#capabilities" | relLangURL }}">FinOps &amp; Pricing</a></li>
+					<li><a href="{{ "/capabilities/#technology" | relLangURL }}">AI &amp; Agentic Systems</a></li>
+					<li><a href="{{ "/capabilities/#technology" | relLangURL }}">Cloud Native &amp; Kubernetes</a></li>
+					<li><a href="{{ "/capabilities/#technology" | relLangURL }}">DevOps, SRE &amp; Platform</a></li>
+					<li><a href="{{ "/capabilities/#technology" | relLangURL }}">FinOps &amp; Pricing</a></li>
+				</ul>
+			</div>
+
+			<div class="footer-col">
+				<h4>Organization &amp; Leadership</h4>
+				<ul>
+					<li><a href="{{ "/capabilities/#organization" | relLangURL }}">Organizing for Services</a></li>
+					<li><a href="{{ "/capabilities/#organization" | relLangURL }}">Metrics &amp; Growth</a></li>
+					<li><a href="{{ "/capabilities/#leadership" | relLangURL }}">Executive Advisory</a></li>
+					<li><a href="{{ "/capabilities/#approach" | relLangURL }}">Build &mdash; Operate &mdash; Transfer</a></li>
 				</ul>
 			</div>
 
@@ -40,7 +49,6 @@
 			<div class="footer-col">
 				<h4>Get in touch</h4>
 				<ul>
-					<li><a href="mailto:{{ $email }}">{{ $email }}</a></li>
 					<li><a href="{{ .Site.Params.navCtaUrl | default "/#contact" | relLangURL }}">Start a conversation</a></li>
 				</ul>
 			</div>
@@ -48,7 +56,7 @@
 
 		<div class="footer-bottom">
 			<span>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</span>
-			<span>Service delivered as software.</span>
+			<span>The assembled team for the AI era.</span>
 		</div>
 	</div>
 </footer>
