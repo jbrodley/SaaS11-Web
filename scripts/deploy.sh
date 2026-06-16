@@ -16,8 +16,14 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+# Pull defaults from ../terraform-website outputs if env vars are not already set.
+TF_DIR="${TF_DIR:-../terraform-website}"
+S3_BUCKET="${S3_BUCKET:-$(cd "$TF_DIR" && terraform output -raw saas11_website_bucket_name 2>/dev/null || true)}"
 S3_BUCKET="${S3_BUCKET:-www.saas11.com}"
+
+CF_DISTRIBUTION_ID="${CF_DISTRIBUTION_ID:-$(cd "$TF_DIR" && terraform output -raw saas11_cloudfront_distribution_id 2>/dev/null || true)}"
 CF_DISTRIBUTION_ID="${CF_DISTRIBUTION_ID:-}"
+
 BASE_URL="${BASE_URL:-https://www.saas11.com/}"
 NO_INVALIDATE=false
 
@@ -77,5 +83,7 @@ elif [[ -z "${CF_DISTRIBUTION_ID}" ]]; then
   echo "    Set CF_DISTRIBUTION_ID to enable invalidation."
 fi
 
-echo "==> Done. Site live at CloudFront URL (check terraform output saas11_cloudfront_domain_name)."
-echo "    DNS cutover not yet configured — Route53 records need to be added when ready."
+echo "==> Done. Site live at https://www.saas11.com/"
+if [[ -n "${CF_DISTRIBUTION_ID}" ]]; then
+  echo "    CloudFront distribution: ${CF_DISTRIBUTION_ID}"
+fi
