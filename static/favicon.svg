@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#5b8cff"/>
-      <stop offset="0.55" stop-color="#a855f7"/>
-      <stop offset="1" stop-color="#22d3ee"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#0a0b14"/>
-  <rect x="6" y="6" width="52" height="52" rx="13" fill="url(#g)"/>
-  <text x="32" y="41" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="22" font-weight="700" fill="#0a0b14" text-anchor="middle" letter-spacing="-1">S11</text>
+  <!-- Rounded background (Deep Navy) -->
+  <rect width="64" height="64" rx="14" fill="#0C1A38"/>
+
+  <!-- Cloud mark: cyan left, blue center, indigo right -->
+  <circle cx="21" cy="35" r="14" fill="#25A5D8"/>
+  <circle cx="32" cy="27" r="18" fill="#185CCC"/>
+  <circle cx="45" cy="36" r="11" fill="#4B45CA"/>
+
+  <!-- Crisp white "11" negative-space layer -->
+  <text x="32" y="42" font-family="'Montserrat', 'Inter', system-ui, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.04em">11</text>
 </svg>

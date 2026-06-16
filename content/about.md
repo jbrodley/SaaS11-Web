@@ -12,6 +12,8 @@ hero:
 founder:
   name: "Justin Brodley"
   title: "Founder & CEO"
+  photo: "/img/justin-brodley.jpg"
+  alt: "Justin Brodley, Founder & CEO of SaaS 11"
   bio: "SaaS and cloud executive, AWS expert, and former CTO with 15+ years of leading SaaS pivots, building cloud-native platforms, and operating at the intersection of technology, organization, and leadership. Justin created The Cloud Pod by finding the exact specialists needed — and he brings that same discipline to SaaS 11 engagements."
   focus:
     - "SaaS Strategy & Transformation"

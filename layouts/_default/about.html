@@ -19,7 +19,11 @@
 <section class="section founder-section">
 	<div class="container container--wide">
 		<div class="founder-card" data-reveal>
+			{{- with .photo }}
+			<img class="founder-card__photo" src="{{ . | relURL }}" alt="{{ $p.founder.alt | default (print $p.founder.name " portrait") }}" width="300" height="300" loading="lazy">
+			{{- else }}
 			<div class="founder-card__initials" aria-hidden="true">JB</div>
+			{{- end }}
 			<div class="founder-card__body">
 				<h2>{{ .name }}</h2>
 				<p class="founder-card__title">{{ .title }}</p>

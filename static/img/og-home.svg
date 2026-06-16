@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0a0b14"/>
+      <stop offset="0%" stop-color="#0C1A38"/>
       <stop offset="50%" stop-color="#11131f"/>
-      <stop offset="100%" stop-color="#0c0e1a"/>
+      <stop offset="100%" stop-color="#0a0b14"/>
     </linearGradient>
     <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#5b8cff"/>
-      <stop offset="55%" stop-color="#a855f7"/>
-      <stop offset="100%" stop-color="#22d3ee"/>
+      <stop offset="0%" stop-color="#25A5D8"/>
+      <stop offset="45%" stop-color="#185CCC"/>
+      <stop offset="100%" stop-color="#4B45CA"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect x="0" y="0" width="1200" height="4" fill="url(#grad)"/>
-  <text x="100" y="200" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="96" fill="#ffffff">SaaS 11</text>
+  <text x="100" y="200" font-family="Montserrat, Inter, system-ui, sans-serif" font-weight="800" font-size="96" fill="#ffffff">SaaS 11</text>
   <text x="100" y="310" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="42" fill="#e8eaf2">The assembled team for your</text>
-  <text x="100" y="370" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="48" fill="url(#grad)">SaaS transformation</text>
+  <text x="100" y="370" font-family="Montserrat, Inter, system-ui, sans-serif" font-weight="700" font-size="48" fill="url(#grad)">SaaS transformation</text>
   <text x="100" y="470" font-family="Inter, system-ui, sans-serif" font-weight="400" font-size="28" fill="#99a2bb">AI Consultancy · Cloud Native · FinOps · Executive Advisory</text>
   <text x="100" y="560" font-family="JetBrains Mono, monospace" font-weight="500" font-size="18" fill="#6a7390">saas11.com</text>
 </svg>

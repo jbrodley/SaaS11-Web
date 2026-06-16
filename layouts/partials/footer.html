@@ -3,9 +3,8 @@
 	<div class="container container--wide">
 		<div class="footer-grid">
 			<div class="footer-brand">
-				<a href="{{ "/" | relLangURL }}" class="brand" rel="home">
-					<span class="brand__mark">S11</span>
-					<span class="brand__text">SaaS&nbsp;<b>11</b></span>
+				<a href="{{ "/" | relLangURL }}" class="brand" rel="home" aria-label="SaaS 11 — Home">
+					<img class="brand__logo" src="{{ "img/mark.png" | relURL }}" alt="SaaS 11" width="1024" height="1024">
 				</a>
 				<p>{{ .Site.Params.footerBlurb }}</p>
 				{{- if $social }}
